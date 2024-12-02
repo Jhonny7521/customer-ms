@@ -1,16 +1,18 @@
 package com.bm_nttdata.customer_ms.entity;
 
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
-
+/**
+ * Entidad que representa a los clientes en el sistema bancario.
+ * Esta clase es un documento de MongoDB que almacena la información
+ * básica de los clientes.
+ */
 @Data
 @Builder
 @NoArgsConstructor
