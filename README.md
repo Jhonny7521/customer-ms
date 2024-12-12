@@ -7,6 +7,17 @@ Este microservicio gestiona todas las operaciones relacionadas con los clientes 
 
 ![Banking System Architecture](./src/main/resources/docs/system_bank.jpg)
 
+## Links de repositorios
+
+* [Microservicio Account](https://github.com/Jhonny7521/account-ms)
+* [Microservicio Credit](https://github.com/Jhonny7521/credit-ms)
+* [Microservicio Transactions](https://github.com/Jhonny7521/transaction-ms)
+* [Microservicio Reports](https://github.com/Jhonny7521/report-ms)
+* [Microservicio DebitCard](https://github.com/Jhonny7521/debitcard-ms)
+* [AuthService](https://github.com/Jhonny7521/auth-service)
+* [ApiGateway](https://github.com/Jhonny7521/api-gateway-ms)
+* [DiscoveryServer](https://github.com/Jhonny7521/discovery-server-ms)
+* [ConfigServer](https://github.com/Jhonny7521/config-server-ms)
 
 ## Tecnologías
 
