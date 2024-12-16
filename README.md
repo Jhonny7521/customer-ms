@@ -7,6 +7,10 @@ Este microservicio gestiona todas las operaciones relacionadas con los clientes 
 
 ![Banking System Architecture](./src/main/resources/docs/system_bank.jpg)
 
+## Diagramas de secuencia
+
+* [Link](./src/main/resources/docs/sequence_diagrams.md)
+
 ## Links de repositorios
 
 * [Microservicio Account](https://github.com/Jhonny7521/account-ms)
