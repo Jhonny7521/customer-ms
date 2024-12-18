@@ -80,7 +80,7 @@ public class CustomerService {
      */
     public void deleteCustomer(String id) {
         Customer customer = getCustomerById(id);
-        customerRepository.deleteById(id);
+        customerRepository.delete(customer);
     }
 
 }
