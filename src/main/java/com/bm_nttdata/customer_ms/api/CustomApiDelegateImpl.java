@@ -7,10 +7,8 @@ import com.bm_nttdata.customer_ms.model.CustomerResponse;
 import com.bm_nttdata.customer_ms.service.CustomerService;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
@@ -20,10 +18,11 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class CustomApiDelegateImpl implements CustomerApiDelegate {
-    @Autowired
-    private CustomerService customerService;
-    private CustomerMapper customerMapper = Mappers.getMapper(CustomerMapper.class);
+
+    private final CustomerService customerService;
+    private final CustomerMapper customerMapper;
 
     @Override
     public ResponseEntity<CustomerResponse> createCustomer(CustomerRequest customerRequest) {
@@ -50,7 +49,7 @@ public class CustomApiDelegateImpl implements CustomerApiDelegate {
         List<CustomerResponse> customers = customerService.getAllCustomers()
                 .stream()
                 .map(customerMapper::toResponse)
-                .collect(Collectors.toList());
+                .toList();
         return ResponseEntity.ok(customers);
     }
 

@@ -71,8 +71,6 @@ class CustomerServiceTest {
     @DisplayName("Find a customer by ID")
     void testFindById_Success() {
         // Arrange -> Configurations
-        Customer customerExpected = CustomerUtils.buildExistingCustomerMock();
-
         when(customerRepository.findById(any()))
             .thenReturn(Optional.ofNullable(CustomerUtils.buildExistingCustomerMock()));
         // Act -> Execution
@@ -194,11 +192,11 @@ class CustomerServiceTest {
                         updatedCustomer.getId(),
                         "The customer's id must be the same"),
                 () -> assertNotEquals(
-                        updatedCustomer.getAddress(),
+                        customerResponse.getAddress(),
                         existingCustomer.getAddress(),
                         "The customer's address must be different"),
                 () -> assertNotEquals(
-                        updatedCustomer.getPhone(),
+                        customerResponse.getPhone(),
                         existingCustomer.getPhone(),
                         "The customer's phone must be different"),
                 () -> verify(customerRepository, times(1)).findById(customerId),

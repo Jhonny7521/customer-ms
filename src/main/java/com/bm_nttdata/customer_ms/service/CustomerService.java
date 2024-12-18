@@ -7,9 +7,8 @@ import com.bm_nttdata.customer_ms.mapper.CustomerMapper;
 import com.bm_nttdata.customer_ms.model.CustomerRequest;
 import com.bm_nttdata.customer_ms.repository.CustomerRepository;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,12 +16,12 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class CustomerService {
 
-    @Autowired
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
-    private CustomerMapper customerMapper = Mappers.getMapper(CustomerMapper.class);
+    private final CustomerMapper customerMapper;
 
     /**
      * Crea un nuevo cliente en el sistema.

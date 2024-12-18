@@ -37,7 +37,7 @@ import org.springframework.http.ResponseEntity;
  * Se utiliza el patron AAA (Arrange-Act-Assert).
  */
 @ExtendWith(MockitoExtension.class)
-public class CustomerApiDelegateImplTest {
+class CustomerApiDelegateImplTest {
 
     @Mock
     private CustomerService customerService;
