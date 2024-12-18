@@ -2,6 +2,8 @@ package com.bm_nttdata.customer_ms.util;
 
 import com.bm_nttdata.customer_ms.entity.Customer;
 import com.bm_nttdata.customer_ms.model.CustomerRequest;
+import com.bm_nttdata.customer_ms.model.CustomerResponse;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,7 +17,7 @@ public class CustomerUtils {
      *
      * @return el objeto generado
      */
-    public static Customer buildCustomerMock() {
+    public static Customer buildExistingCustomerMock() {
         return Customer.builder()
                 .id("675ae6c4a80f7a40908d0cec")
                 .customerType("PERSONAL")
@@ -25,6 +27,8 @@ public class CustomerUtils {
                 .phone("98764123")
                 .address("Calle las begonias Mz. A Lte 45")
                 .status("ACTIVE")
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
                 .build();
     }
 
@@ -42,6 +46,8 @@ public class CustomerUtils {
                 .phone("98764123")
                 .address("Calle las begonias Mz. A Lte 45")
                 .status("ACTIVE")
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
                 .build();
         Customer customer2 = Customer.builder()
                 .customerType("BUSINESS")
@@ -51,8 +57,27 @@ public class CustomerUtils {
                 .phone("999534625")
                 .address("Calle Los troyanos, Surquillo")
                 .status("ACTIVE")
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
                 .build();
         return Arrays.asList(customer1, customer2);
+    }
+
+    /**
+     * Construye una instancia de la entidad Customer sin atributo ID.
+     *
+     * @return el objeto generado
+     */
+    public static Customer buildNewCustomerMock() {
+        return Customer.builder()
+                .customerType("PERSONAL")
+                .name("Luis Sanchez")
+                .documentNumber("45678921")
+                .email("luis.sanchez@nttdata.com")
+                .phone("98764123")
+                .address("Calle las begonias Mz. A Lte 45")
+                .status("ACTIVE")
+                .build();
     }
 
     /**
@@ -71,6 +96,50 @@ public class CustomerUtils {
         customerRequest.setDocumentNumber("45678921");
 
         return customerRequest;
+    }
+
+    /**
+     * Construye una instancia de CustomersResponse.
+     *
+     * @return El objeto CustomerResponse generado
+     */
+    public static CustomerResponse buildCustomerResponseMock() {
+
+        CustomerResponse customerResponse1 = new CustomerResponse();
+        customerResponse1.setCustomerType(CustomerResponse.CustomerTypeEnum.PERSONAL);
+        customerResponse1.setName("Luis Sanchez");
+        customerResponse1.setDocumentNumber("45678921");
+        customerResponse1.setEmail("luis.sanchez@nttdata.com");
+        customerResponse1.setPhone("98764123");
+        customerResponse1.setAddress("Calle las begonias Mz. A Lte 45");
+
+        return customerResponse1;
+    }
+
+    /**
+     * Construye una lista de instancias de CustomersResponse.
+     *
+     * @return la lista con objetos CustomerResponse generada
+     */
+    public static List<CustomerResponse> buildCustomerResponseListMock() {
+
+        CustomerResponse customerResponse1 = new CustomerResponse();
+        customerResponse1.setCustomerType(CustomerResponse.CustomerTypeEnum.PERSONAL);
+        customerResponse1.setName("Luis Sanchez");
+        customerResponse1.setDocumentNumber("45678921");
+        customerResponse1.setEmail("luis.sanchez@nttdata.com");
+        customerResponse1.setPhone("98764123");
+        customerResponse1.setAddress("Calle las begonias Mz. A Lte 45");
+
+        CustomerResponse customerResponse2 = new CustomerResponse();
+        customerResponse2.setCustomerType(CustomerResponse.CustomerTypeEnum.BUSINESS);
+        customerResponse2.setName("Marta Jimenez");
+        customerResponse2.setDocumentNumber("57964261");
+        customerResponse2.setEmail("marta.jimenez@nttdata.com");
+        customerResponse2.setPhone("999534625");
+        customerResponse2.setAddress("Calle Los troyanos, Surquillo");
+
+        return Arrays.asList(customerResponse1, customerResponse2);
     }
 
 }

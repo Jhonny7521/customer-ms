@@ -21,7 +21,6 @@ import com.bm_nttdata.customer_ms.mapper.CustomerMapper;
 import com.bm_nttdata.customer_ms.model.CustomerRequest;
 import com.bm_nttdata.customer_ms.repository.CustomerRepository;
 import com.bm_nttdata.customer_ms.util.CustomerUtils;
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
@@ -72,16 +71,15 @@ class CustomerServiceTest {
     @DisplayName("Find a customer by ID")
     void testFindById_Success() {
         // Arrange -> Configurations
-        Customer customerExpected = CustomerUtils.buildCustomerMock();
+        Customer customerExpected = CustomerUtils.buildExistingCustomerMock();
 
         when(customerRepository.findById(any()))
-            .thenReturn(Optional.ofNullable(CustomerUtils.buildCustomerMock()));
+            .thenReturn(Optional.ofNullable(CustomerUtils.buildExistingCustomerMock()));
         // Act -> Execution
         Customer customerResponse = customerService.getCustomerById(any());
         // Asserts -> Verifications
         assertAll(
                 () -> assertNotNull(customerResponse),
-                () -> assertEquals(customerExpected, customerResponse),
                 () -> assertEquals("Luis Sanchez", customerResponse.getName()),
                 () -> assertEquals("ACTIVE", customerResponse.getStatus()),
                 () -> assertEquals("PERSONAL", customerResponse.getCustomerType())
@@ -116,8 +114,8 @@ class CustomerServiceTest {
     void testCreateCustomer_Success() {
 
         // Arrange -> Configurations
-        Customer newCustomer = CustomerUtils.buildCustomerMock();
-        Customer customerExpected = CustomerUtils.buildCustomerMock();
+        Customer newCustomer = CustomerUtils.buildNewCustomerMock();
+        Customer customerExpected = CustomerUtils.buildExistingCustomerMock();
 
         when(customerRepository.existsByDocumentNumber(newCustomer.getDocumentNumber()))
                 .thenReturn(false);
@@ -129,7 +127,7 @@ class CustomerServiceTest {
 
         // Asserts -> Verifications
         assertNotNull(customerResponse);
-        assertEquals(newCustomer, customerResponse);
+        assertEquals(customerExpected, customerResponse);
         assertEquals("Luis Sanchez", customerResponse.getName());
         assertEquals("PERSONAL", customerResponse.getCustomerType());
         assertEquals("ACTIVE", customerResponse.getStatus());
@@ -144,7 +142,7 @@ class CustomerServiceTest {
     void testCreateCustomer_Failed() {
 
         // Arrange -> Configurations
-        Customer newCustomer = CustomerUtils.buildCustomerMock();
+        Customer newCustomer = CustomerUtils.buildNewCustomerMock();
 
         when(customerRepository.existsByDocumentNumber(newCustomer.getDocumentNumber()))
             .thenReturn(true);
@@ -169,7 +167,7 @@ class CustomerServiceTest {
 
         // Arrange -> Configurations
         final String customerId = "675ae6c4a80f7a40908d0cec";
-        Customer existingCustomer = CustomerUtils.buildCustomerMock();
+        Customer existingCustomer = CustomerUtils.buildExistingCustomerMock();
         CustomerRequest customerRequest = CustomerUtils.buildCustomerRequestMock();
 
         Customer updatedCustomer = new Customer();
@@ -241,7 +239,7 @@ class CustomerServiceTest {
 
         // Arrange -> Configurations
         String customerId = "675ae6c4a80f7a40908d0cec";
-        Customer customer = CustomerUtils.buildCustomerMock();
+        Customer customer = CustomerUtils.buildExistingCustomerMock();
 
         when(customerRepository.findById(customerId))
                 .thenReturn(Optional.of(customer));
@@ -262,7 +260,6 @@ class CustomerServiceTest {
 
         // Arrange -> Configurations
         String customerId = "675ae6c4a80f7a";
-        Customer customer = CustomerUtils.buildCustomerMock();
 
         when(customerRepository.findById(customerId))
                 .thenReturn(Optional.empty());

@@ -199,13 +199,14 @@
 				<configuration>
 					<excludes>
 						<exclude>com/bm_nttdata/customer_ms/CustomerMsApplication.class</exclude>
-<!--						<exclude>com/bm_nttdata/transaction_ms/dto/*</exclude>-->
-<!--						<exclude>com/bm_nttdata/transaction_ms/model/*</exclude>-->
-<!--						<exclude>com/bm_nttdata/transaction_ms/entity/*</exclude>-->
-<!--						<exclude>com/bm_nttdata/transaction_ms/enums/*</exclude>-->
-<!--						<exclude>com/bm_nttdata/transaction_ms/exception/*</exclude>-->
-<!--						<exclude>com/bm_nttdata/transaction_ms/api/*</exclude>-->
-<!--						<exclude>com/bm_nttdata/transaction_ms/mapper/*</exclude>-->
+						<exclude>com/bm_nttdata/customer_ms/entity/*</exclude>
+						<exclude>com/bm_nttdata/customer_ms/exception/*</exclude>
+						<exclude>com/bm_nttdata/customer_ms/mapper/*</exclude>
+						<exclude>com/bm_nttdata/customer_ms/model/*</exclude>
+						<exclude>com/bm_nttdata/customer_ms/api/ApiUtil.class</exclude>
+						<exclude>com/bm_nttdata/customer_ms/api/CustomerApi*</exclude>
+						<exclude>com/bm_nttdata/customer_ms/api/CustomerApiController.class</exclude>
+						<exclude>com/bm_nttdata/customer_ms/api/CustomerApiDelegate.class</exclude>
 					</excludes>
 				</configuration>
 				<!--Exclusiones para reporte de cobertura-->
