@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CustomApiDelegateImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">customer-ms</a> &gt; <a href="index.source.html" class="el_package">com.bm_nttdata.customer_ms.api</a> &gt; <span class="el_source">CustomApiDelegateImpl.java</span></div><h1>CustomApiDelegateImpl.java</h1><pre class="source lang-java linenums">package com.bm_nttdata.customer_ms.api;
+
+import com.bm_nttdata.customer_ms.entity.Customer;
+import com.bm_nttdata.customer_ms.mapper.CustomerMapper;
+import com.bm_nttdata.customer_ms.model.CustomerRequest;
+import com.bm_nttdata.customer_ms.model.CustomerResponse;
+import com.bm_nttdata.customer_ms.service.CustomerService;
+import java.time.LocalDateTime;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+
+/**
+ * Implementación de los métodos generados por OpenApi Generator.
+ * Gestiona las operaciones definidas en el contrato OpenApi para el manejo de clientes.
+ */
+<span class="fc" id="L19">@Slf4j</span>
+@Component
+<span class="fc" id="L21">@RequiredArgsConstructor</span>
+public class CustomApiDelegateImpl implements CustomerApiDelegate {
+
+    private final CustomerService customerService;
+    private final CustomerMapper customerMapper;
+
+    @Override
+    public ResponseEntity&lt;CustomerResponse&gt; createCustomer(CustomerRequest customerRequest) {
+<span class="fc" id="L29">        log.info(&quot;Creating customer with document number: {}&quot;, customerRequest.getDocumentNumber());</span>
+
+<span class="fc" id="L31">        Customer customer = customerMapper.toEntity(customerRequest);</span>
+<span class="fc" id="L32">        customer.setCreatedAt(LocalDateTime.now());</span>
+<span class="fc" id="L33">        customer.setUpdatedAt(LocalDateTime.now());</span>
+
+<span class="fc" id="L35">        Customer savedCustomer = customerService.createCustomer(customer);</span>
+<span class="fc" id="L36">        return ResponseEntity.ok(customerMapper.toResponse(savedCustomer));</span>
+    }
+
+    @Override
+    public ResponseEntity&lt;Void&gt; deleteCustomer(String id) {
+<span class="nc" id="L41">        log.info(&quot;Deleting customer with id: {}&quot;, id);</span>
+<span class="nc" id="L42">        customerService.deleteCustomer(id);</span>
+<span class="nc" id="L43">        return ResponseEntity.noContent().build();</span>
+    }
+
+    @Override
+    public ResponseEntity&lt;List&lt;CustomerResponse&gt;&gt; getAllCustomers() {
+<span class="fc" id="L48">        log.info(&quot;Getting all customers&quot;);</span>
+<span class="fc" id="L49">        List&lt;CustomerResponse&gt; customers = customerService.getAllCustomers()</span>
+<span class="fc" id="L50">                .stream()</span>
+<span class="fc" id="L51">                .map(customerMapper::toResponse)</span>
+<span class="fc" id="L52">                .toList();</span>
+<span class="fc" id="L53">        return ResponseEntity.ok(customers);</span>
+    }
+
+    @Override
+    public ResponseEntity&lt;CustomerResponse&gt; getCustomerById(String id) {
+<span class="fc" id="L58">        log.info(&quot;Getting customer with id: {}&quot;, id);</span>
+<span class="fc" id="L59">        Customer customer = customerService.getCustomerById(id);</span>
+<span class="fc" id="L60">        return ResponseEntity.ok(customerMapper.toResponse(customer));</span>
+    }
+
+    @Override
+    public ResponseEntity&lt;CustomerResponse&gt; updateCustomer(
+            String id,
+            CustomerRequest customerRequest) {
+<span class="fc" id="L67">        log.info(&quot;Updating customer with id: {}&quot;, id);</span>
+<span class="fc" id="L68">        Customer updatedCustomer = customerService.updateCustomer(id, customerRequest);</span>
+<span class="fc" id="L69">        return ResponseEntity.ok(customerMapper.toResponse(updatedCustomer));</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

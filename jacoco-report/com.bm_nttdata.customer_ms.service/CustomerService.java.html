@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CustomerService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">customer-ms</a> &gt; <a href="index.source.html" class="el_package">com.bm_nttdata.customer_ms.service</a> &gt; <span class="el_source">CustomerService.java</span></div><h1>CustomerService.java</h1><pre class="source lang-java linenums">package com.bm_nttdata.customer_ms.service;
+
+import com.bm_nttdata.customer_ms.entity.Customer;
+import com.bm_nttdata.customer_ms.exception.CustomerNotFoundException;
+import com.bm_nttdata.customer_ms.exception.DuplicateCustomerException;
+import com.bm_nttdata.customer_ms.mapper.CustomerMapper;
+import com.bm_nttdata.customer_ms.model.CustomerRequest;
+import com.bm_nttdata.customer_ms.repository.CustomerRepository;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+/**
+ * Servicio que gestiona las operaciones de negocio relacionadas con los clientes.
+ */
+<span class="fc" id="L17">@Slf4j</span>
+@Service
+<span class="fc" id="L19">@RequiredArgsConstructor</span>
+public class CustomerService {
+
+    private final CustomerRepository customerRepository;
+
+    private final CustomerMapper customerMapper;
+
+    /**
+     * Crea un nuevo cliente en el sistema.
+     *
+     * @param customer el cliente a crear
+     * @return el cliente creado con su ID asignado
+     */
+    public Customer createCustomer(Customer customer) {
+<span class="fc bfc" id="L33" title="All 2 branches covered.">        if (customerRepository.existsByDocumentNumber(customer.getDocumentNumber())) {</span>
+<span class="fc" id="L34">            throw new DuplicateCustomerException(&quot;Customer with document number &quot;</span>
+<span class="fc" id="L35">                    + customer.getDocumentNumber() + &quot; already exist&quot;);</span>
+        }
+
+<span class="fc" id="L38">        return customerRepository.save(customer);</span>
+    }
+
+    /**
+     * Obtiene todos los clientes registrados en el sistema.
+     *
+     * @return lista de todos los clientes
+     */
+    public List&lt;Customer&gt; getAllCustomers() {
+<span class="fc" id="L47">        return customerRepository.findAll();</span>
+    }
+
+    /**
+     * Busca un cliente por su ID.
+     *
+     * @param id el ID del cliente a buscar
+     * @return el cliente encontrado
+     */
+    public Customer getCustomerById(String id) {
+<span class="fc" id="L57">        return customerRepository.findById(id)</span>
+<span class="fc" id="L58">                .orElseThrow(() -&gt; new CustomerNotFoundException(</span>
+                        &quot;Customer not found with id: &quot; + id));
+    }
+
+    /**
+     * Actualiza los datos de un cliente existente.
+     *
+     * @param id el ID del cliente a actualizar
+     * @param request objeto con los nuevos datos del cliente
+     * @return el cliente actualizado
+     */
+    public Customer updateCustomer(String id, CustomerRequest request) {
+<span class="fc" id="L70">        Customer customer = getCustomerById(id);</span>
+<span class="fc" id="L71">        customerMapper.updateEntity(request, customer);</span>
+<span class="fc" id="L72">        return customerRepository.save(customer);</span>
+    }
+
+    /**
+     * Elimina un cliente del sistema.
+     *
+     * @param id el ID del cliente a eliminar
+     */
+    public void deleteCustomer(String id) {
+<span class="fc" id="L81">        Customer customer = getCustomerById(id);</span>
+<span class="fc" id="L82">        customerRepository.delete(customer);</span>
+<span class="fc" id="L83">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
